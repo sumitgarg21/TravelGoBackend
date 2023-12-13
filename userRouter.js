@@ -9,6 +9,7 @@ const userModel = require("./Models/userModel");
 const { sendMail } = require('./nodemailer')
 const fetchuser = require('./fetchuser');
 const Router = express.Router();
+const FrontendUrl = "https://travelgo-delta.vercel.app"
 Router.post("/signup",
   [
     body("email", "Enter a valid email").isEmail(),
@@ -116,7 +117,7 @@ Router.post("/forgotpassword", async (req, res) => {
   try {
     let user = await userModel.findOne({ email: mail })
     const resetToken = user.createResetToken()
-    let resetpassword = `${req.protocol}://localhost:3000/resetpassword/${resetToken}`
+    let resetpassword = `${FrontendUrl}/resetpassword/${resetToken}`
     let Obj = {
       resetpassword: resetpassword,
       email: mail
